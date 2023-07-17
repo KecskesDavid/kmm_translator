@@ -1,4 +1,4 @@
-package com.plcoding.translator_kmm.translate.domain.translate
+package com.plcoding.translator_kmm.featuretranslate.domain.translate
 
 enum class TranslateError {
     SERVICE_UNAVAILABLE,
@@ -8,5 +8,5 @@ enum class TranslateError {
 }
 
 class TranslateException(val error: TranslateError) : Exception(
-    message = "An error occurred when translating: $error"
+    "An error occurred when translating: $error"
 )

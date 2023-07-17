@@ -1,12 +1,12 @@
-package com.plcoding.translator_kmm.translate.data.client
+package com.plcoding.translator_kmm.featuretranslate.data.client
 
 import com.plcoding.translator_kmm.Constants
 import com.plcoding.translator_kmm.core.domain.model.Language
-import com.plcoding.translator_kmm.translate.data.entity.TranslateRequest
-import com.plcoding.translator_kmm.translate.data.entity.TranslateResponse
-import com.plcoding.translator_kmm.translate.domain.translate.ITranslateClient
-import com.plcoding.translator_kmm.translate.domain.translate.TranslateError
-import com.plcoding.translator_kmm.translate.domain.translate.TranslateException
+import com.plcoding.translator_kmm.featuretranslate.data.entity.TranslateRequest
+import com.plcoding.translator_kmm.featuretranslate.data.entity.TranslateResponse
+import com.plcoding.translator_kmm.featuretranslate.domain.translate.ITranslateClient
+import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateError
+import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateException
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post

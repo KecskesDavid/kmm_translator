@@ -1,0 +1,24 @@
+CREATE TABLE HistoryTable (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  fromLanguageCode TEXT NOT NULL,
+  fromText TEXT NOT NULL,
+  toLanguageCode TEXT NOT NULL,
+  toText TEXT NOT NULL,
+  timeStamp INTEGER NOT NULL
+);
+
+getLocalHistory:
+SELECT *
+FROM HistoryTable;
+
+insertHistoryItem:
+INSERT INTO HistoryTable (
+  id,
+  fromLanguageCode,
+  fromText,
+  toLanguageCode,
+  toText,
+  timeStamp
+) VALUES (
+    ?, ?, ?, ?, ?, ?
+);

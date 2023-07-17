@@ -1,4 +1,4 @@
-package com.plcoding.translator_kmm.translate.data.entity
+package com.plcoding.translator_kmm.featuretranslate.data.entity
 
 import kotlinx.serialization.Serializable
 

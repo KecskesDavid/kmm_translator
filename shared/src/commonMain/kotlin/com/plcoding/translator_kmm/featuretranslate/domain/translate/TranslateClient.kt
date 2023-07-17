@@ -1,4 +1,4 @@
-package com.plcoding.translator_kmm.translate.domain.translate
+package com.plcoding.translator_kmm.featuretranslate.domain.translate
 
 import com.plcoding.translator_kmm.core.domain.model.Language
 
