@@ -1,4 +1,4 @@
-package com.plcoding.translator_kmm.core.presentation
+package com.plcoding.translator_kmm.core.presentation.model
 
 import androidx.annotation.DrawableRes
 import com.plcoding.translator_kmm.R
@@ -32,7 +32,7 @@ actual class UiLanguage(
             get() = Language.values().map { language ->
                 UiLanguage(
                     language = language,
-                    drawableRes = when(language) {
+                    drawableRes = when (language) {
                         Language.ENGLISH -> R.drawable.english
                         Language.ARABIC -> R.drawable.arabic
                         Language.AZERBAIJANI -> R.drawable.azerbaijani
