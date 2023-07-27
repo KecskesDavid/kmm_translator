@@ -2,9 +2,8 @@ package com.plcoding.translator_kmm.featuretranslate.presentation
 
 import com.plcoding.translator_kmm.core.domain.util.Resource
 import com.plcoding.translator_kmm.core.domain.util.toCommonStateFlow
-import com.plcoding.translator_kmm.core.presentation.UiHistoryItem
-import com.plcoding.translator_kmm.core.presentation.UiLanguage
-import com.plcoding.translator_kmm.featuretranslate.domain.history.HistoryDataSource
+import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
+import com.plcoding.translator_kmm.featuretranslate.domain.history.HistoryDao
 import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateException
 import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -20,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class TranslateViewModel(
     private val translateUseCase: TranslateUseCase,
-    private val historyDataSource: HistoryDataSource,
+    private val historyDao: HistoryDao,
     private val coroutineScope: CoroutineScope? = null
 ) {
     private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
@@ -29,7 +28,7 @@ class TranslateViewModel(
     private val _state = MutableStateFlow(TranslateState())
     val state = combine(
         _state,
-        historyDataSource.getLocalHistory()
+        historyDao.getLocalHistory()
     ) { state, history ->
         if (state.history != history) {
             state.copy(

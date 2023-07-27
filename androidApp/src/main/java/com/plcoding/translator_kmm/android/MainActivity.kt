@@ -6,42 +6,81 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Shapes
+import androidx.compose.material.Surface
+import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.plcoding.translator_kmm.Greeting
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.plcoding.translator_kmm.android.core.compose.navigation.Routes
+import com.plcoding.translator_kmm.android.featuretranslate.presentation.AndroidTranslateViewModel
+import com.plcoding.translator_kmm.android.featuretranslate.presentation.TranslateScreen
+import com.plcoding.translator_kmm.android.theme.darkColors
+import com.plcoding.translator_kmm.android.theme.lightColors
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
-fun MyApplicationTheme(
+fun KmmTranslatorTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
-        darkColors(
-            primary = Color(0xFFBB86FC),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5)
-        )
+        darkColors
     } else {
-        lightColors(
-            primary = Color(0xFF6200EE),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5)
-        )
+        lightColors
     }
+    val SfProText = FontFamily(
+        Font(
+            resId = R.font.sf_pro_text_regular,
+            weight = FontWeight.Normal
+        ),
+        Font(
+            resId = R.font.sf_pro_text_medium,
+            weight = FontWeight.Medium
+        ),
+        Font(
+            resId = R.font.sf_pro_text_bold,
+            weight = FontWeight.Bold
+        ),
+    )
     val typography = Typography(
+        h1 = TextStyle(
+            fontFamily = SfProText,
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp
+        ),
+        h2 = TextStyle(
+            fontFamily = SfProText,
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp
+        ),
+        h3 = TextStyle(
+            fontFamily = SfProText,
+            fontWeight = FontWeight.Medium,
+            fontSize = 18.sp
+        ),
         body1 = TextStyle(
-            fontFamily = FontFamily.Default,
+            fontFamily = SfProText,
             fontWeight = FontWeight.Normal,
-            fontSize = 16.sp
-        )
+            fontSize = 14.sp
+        ),
+        body2 = TextStyle(
+            fontFamily = SfProText,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp
+        ),
     )
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
@@ -57,16 +96,17 @@ fun MyApplicationTheme(
     )
 }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
+            KmmTranslatorTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting(Greeting().greeting())
+                    TranslateRoot()
                 }
             }
         }
@@ -74,14 +114,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        Greeting("Hello, Android!")
+fun TranslateRoot() {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = Routes.TRANSLATE
+    ) {
+        composable(route = Routes.TRANSLATE) {
+            val viewModel = hiltViewModel<AndroidTranslateViewModel>()
+            val state by viewModel.state.collectAsState()
+            TranslateScreen(
+                state = state,
+                onEvent = viewModel::onEvent
+            )
+        }
     }
 }
