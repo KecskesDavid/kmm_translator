@@ -1,4 +1,4 @@
-package com.plcoding.translator_kmm.android.featuretranslate.presentation.theme
+package com.plcoding.translator_kmm.android.theme
 
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors

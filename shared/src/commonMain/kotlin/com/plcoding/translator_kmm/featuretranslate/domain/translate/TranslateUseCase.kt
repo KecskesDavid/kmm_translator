@@ -2,12 +2,12 @@ package com.plcoding.translator_kmm.featuretranslate.domain.translate
 
 import com.plcoding.translator_kmm.core.domain.model.Language
 import com.plcoding.translator_kmm.core.domain.util.Resource
-import com.plcoding.translator_kmm.featuretranslate.domain.history.HistoryDataSource
+import com.plcoding.translator_kmm.featuretranslate.domain.history.HistoryDao
 import com.plcoding.translator_kmm.featuretranslate.domain.history.HistoryItem
 
 class TranslateUseCase(
     private val translateClient: ITranslateClient,
-    private val historyDataSource: HistoryDataSource
+    private val historyDao: HistoryDao
 ) {
     suspend operator fun invoke(
         fromLanguage: Language,
@@ -19,7 +19,7 @@ class TranslateUseCase(
                 fromLanguage, toLanguage, text
             )
 
-            historyDataSource.insertHistoryItem(
+            historyDao.insertHistoryItem(
                 HistoryItem(
                     id = null,
                     fromLanguageCode = fromLanguage.langCode,
