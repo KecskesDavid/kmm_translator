@@ -3,6 +3,7 @@ package com.plcoding.translator_kmm.android.featuretranslate.presentation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import com.plcoding.translator_kmm.android.KmmTranslatorTheme
 import com.plcoding.translator_kmm.android.R
 import com.plcoding.translator_kmm.android.core.compose.KmmTranslatorPreview
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.LanguagePicker
+import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.TranslateTextField
 import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateState
@@ -40,43 +42,51 @@ fun TranslateScreen(
                 end = 16.dp
             )
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                LanguagePicker(
-                    selectedLanguage = state.fromLanguage,
-                    allLanguages = UiLanguage.allLanguages,
-                    isChoosingLanguage = state.isChoosingFromLanguage,
-                    onClick = { onEvent(TranslateEvent.OpenFromLanguageDropDown) },
-                    onDismiss = { onEvent(TranslateEvent.StopChoosingLanguage) },
-                    onSelect = { onEvent(TranslateEvent.ChooseFromLanguage(it)) }
-                )
-
-                IconButton(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colors.primary),
-                    onClick = { onEvent(TranslateEvent.SwapLanguages) }
+            Column {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.swap_languages),
-                        contentDescription = "Swap languages Icon",
-                        tint = Color.Unspecified
+                    LanguagePicker(
+                        selectedLanguage = state.fromLanguage,
+                        allLanguages = UiLanguage.allLanguages,
+                        isChoosingLanguage = state.isChoosingFromLanguage,
+                        onClick = { onEvent(TranslateEvent.OpenFromLanguageDropDown) },
+                        onDismiss = { onEvent(TranslateEvent.StopChoosingLanguage) },
+                        onSelect = { onEvent(TranslateEvent.ChooseFromLanguage(it)) }
+                    )
+
+                    IconButton(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colors.primary),
+                        onClick = { onEvent(TranslateEvent.SwapLanguages) }
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.swap_languages),
+                            contentDescription = "Swap languages Icon",
+                            tint = Color.Unspecified
+                        )
+                    }
+
+                    LanguagePicker(
+                        selectedLanguage = state.toLanguage,
+                        allLanguages = UiLanguage.allLanguages,
+                        isChoosingLanguage = state.isChoosingToLanguage,
+                        onClick = { onEvent(TranslateEvent.OpenToLanguageDropDown) },
+                        onDismiss = { onEvent(TranslateEvent.StopChoosingLanguage) },
+                        onSelect = { onEvent(TranslateEvent.ChooseToLanguage(it)) }
                     )
                 }
 
-                LanguagePicker(
-                    selectedLanguage = state.toLanguage,
-                    allLanguages = UiLanguage.allLanguages,
-                    isChoosingLanguage = state.isChoosingToLanguage,
-                    onClick = { onEvent(TranslateEvent.OpenToLanguageDropDown) },
-                    onDismiss = { onEvent(TranslateEvent.StopChoosingLanguage) },
-                    onSelect = { onEvent(TranslateEvent.ChooseToLanguage(it)) }
+                TranslateTextField(
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    text = state.fromText,
+                    onTextChange = { onEvent(TranslateEvent.ChangeTranslationText(it)) },
+                    onTranslateClick = { onEvent(TranslateEvent.Translate) }
                 )
             }
-
         }
     }
 }
