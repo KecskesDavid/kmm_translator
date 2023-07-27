@@ -4,10 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -44,7 +42,8 @@ fun TranslateScreen(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 LanguagePicker(
                     selectedLanguage = state.fromLanguage,
@@ -54,8 +53,6 @@ fun TranslateScreen(
                     onDismiss = { onEvent(TranslateEvent.StopChoosingLanguage) },
                     onSelect = { onEvent(TranslateEvent.ChooseFromLanguage(it)) }
                 )
-
-                Spacer(modifier = Modifier.weight(1f))
 
                 IconButton(
                     modifier = Modifier
@@ -69,8 +66,6 @@ fun TranslateScreen(
                         tint = Color.Unspecified
                     )
                 }
-
-                Spacer(modifier = Modifier.weight(1f))
 
                 LanguagePicker(
                     selectedLanguage = state.toLanguage,
