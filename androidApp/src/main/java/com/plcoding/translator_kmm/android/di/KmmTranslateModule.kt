@@ -1,10 +1,14 @@
 package com.plcoding.translator_kmm.android.di
 
 import android.app.Application
+import com.kmm_translator.database.TranslateDatabase
 import com.plcoding.translator_kmm.featuretranslate.data.client.KtorTranslateClient
 import com.plcoding.translator_kmm.featuretranslate.data.local.DatabaseDriverFactory
+import com.plcoding.translator_kmm.featuretranslate.data.local.SqlDelightHistoryDao
 import com.plcoding.translator_kmm.featuretranslate.data.remote.HttpClientFactory
 import com.plcoding.translator_kmm.featuretranslate.domain.history.HistoryDao
+import com.plcoding.translator_kmm.featuretranslate.domain.translate.ITranslateClient
+import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateUseCase
 import com.squareup.sqldelight.db.SqlDriver
 import dagger.Module
 import dagger.Provides
@@ -25,7 +29,7 @@ object KmmTranslateModule {
 
     @Provides
     @Singleton
-    fun provideTranslateClient(httpClient: HttpClient): TranslateClient {
+    fun provideTranslateClient(httpClient: HttpClient): ITranslateClient {
         return KtorTranslateClient(httpClient)
     }
 
@@ -37,16 +41,16 @@ object KmmTranslateModule {
 
     @Provides
     @Singleton
-    fun provideHistoryDataSource(driver: SqlDriver): HistoryDao {
-        return SqlDelightHistoryDataSource(TranslateDatabase(driver))
+    fun provideHistoryDao(driver: SqlDriver): HistoryDao {
+        return SqlDelightHistoryDao(TranslateDatabase(driver))
     }
 
     @Provides
     @Singleton
     fun provideTranslateUseCase(
-        client: TranslateClient,
+        client: ITranslateClient,
         dataSource: HistoryDao
-    ): Translate {
-        return Translate(client, dataSource)
+    ): TranslateUseCase {
+        return TranslateUseCase(client, dataSource)
     }
 }

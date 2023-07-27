@@ -11,7 +11,7 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
 
-class SqlDelightHistoryDataSource(
+class SqlDelightHistoryDao(
     private val database: TranslateDatabase
 ) : HistoryDao {
     private val queries = database.translateQueries
