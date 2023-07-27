@@ -14,11 +14,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -74,10 +74,14 @@ fun DropdownMenuItem(
     enabled: Boolean,
     onClick: () -> Unit,
 ) {
-    Row(modifier = Modifier
-        .clickable(enabled) { onClick() }
-        .height(60.dp)
-        .padding(16.dp)) {
+    Row(
+        modifier = Modifier
+            .clickable(enabled) { onClick() }
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Icon(
             painter = painterResource(id = language.drawableRes),
             contentDescription = language.language.langName,

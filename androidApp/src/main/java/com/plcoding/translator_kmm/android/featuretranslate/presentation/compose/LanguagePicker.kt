@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
@@ -18,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.plcoding.translator_kmm.android.KmmTranslatorTheme
 import com.plcoding.translator_kmm.android.R
 import com.plcoding.translator_kmm.android.core.compose.KmmTranslatorPreview
@@ -46,14 +48,13 @@ fun LanguagePicker(
             modifier = modifier.clickable { onClick() },
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = selectedLanguage.drawableRes),
+            AsyncImage(
+                model = selectedLanguage.drawableRes,
                 contentDescription = selectedLanguage.language.langName,
-                modifier = Modifier.size(30.dp),
-                tint = Color.Unspecified
+                modifier = Modifier.size(30.dp)
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
             Text(text = selectedLanguage.language.langName)
 
