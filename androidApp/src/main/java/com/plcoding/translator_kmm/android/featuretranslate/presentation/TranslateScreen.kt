@@ -4,10 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -35,7 +38,25 @@ fun TranslateScreen(
     state: TranslateState,
     onEvent: (TranslateEvent) -> Unit
 ) {
-    Scaffold { paddingValues ->
+    Scaffold(
+        floatingActionButton = {
+            IconButton(
+                onClick = { },
+                modifier = Modifier
+                    .size(72.dp)
+                    .clip(CircleShape)
+                    .padding(0.dp)
+                    .background(color = MaterialTheme.colors.primary)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.mic),
+                    contentDescription = "Navigate to Speech Recognition",
+                    tint = Color.Unspecified
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center
+    ) { paddingValues ->
         Box(
             modifier = Modifier.padding(
                 top = 16.dp,
@@ -95,7 +116,7 @@ fun TranslateScreen(
                     onCloseTranslation = { onEvent(TranslateEvent.CloseTranslation) }
                 )
 
-                HistorySection(historyList =  listOf(
+                HistorySection(historyList = listOf(
                     UiHistoryItem(
                         id = 0L,
                         fromText = "Somethings",
