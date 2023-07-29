@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,9 +19,9 @@ import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
 
 @Composable
 fun SmallLanguageIcon(
+    modifier: Modifier = Modifier,
     language: UiLanguage,
-    showLanguageName: Boolean = true,
-    modifier: Modifier = Modifier
+    showLanguageName: Boolean = true
 ) {
     Row(
         modifier = modifier,
@@ -35,7 +36,10 @@ fun SmallLanguageIcon(
         if (showLanguageName) {
             Spacer(modifier = Modifier.width(8.dp))
 
-            Text(text = language.language.langName)
+            Text(
+                text = language.language.langName,
+                color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+            )
         }
     }
 }

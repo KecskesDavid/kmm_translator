@@ -9,6 +9,7 @@ import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateUs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -150,7 +151,17 @@ class TranslateViewModel(
                     )
                 }
 
-            TranslateEvent.Translate -> translate(_state.value)
+            TranslateEvent.Translate -> {
+                viewModelScope.launch {
+                    _state.update {
+                        it.copy(isTranslating = true)
+                    }
+                    delay(2000)
+                    _state.update {
+                        it.copy(toText = "Something String")
+                    }
+                }
+            } //translate(_state.value)
 
             else -> Unit
         }

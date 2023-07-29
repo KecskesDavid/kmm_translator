@@ -82,9 +82,15 @@ fun TranslateScreen(
 
                 TranslateTextField(
                     modifier = Modifier.padding(vertical = 16.dp),
-                    text = state.fromText,
+                    fromText = state.fromText,
+                    toText = state.toText,
+                    fromLanguage = state.fromLanguage,
+                    toLanguage = state.toLanguage,
+                    isTranslating = state.isTranslating,
+                    isInIdleState = state.toText.isNullOrBlank(),
                     onTextChange = { onEvent(TranslateEvent.ChangeTranslationText(it)) },
-                    onTranslateClick = { onEvent(TranslateEvent.Translate) }
+                    onTranslateClick = { onEvent(TranslateEvent.Translate) },
+                    onCloseTranslation = { onEvent(TranslateEvent.CloseTranslation) }
                 )
             }
         }

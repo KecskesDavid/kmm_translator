@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -53,7 +54,10 @@ fun LanguagePicker(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Text(text = selectedLanguage.language.langName)
+            Text(
+                text = selectedLanguage.language.langName,
+                color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+            )
 
             Icon(
                 imageVector = if (isChoosingLanguage) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown,
