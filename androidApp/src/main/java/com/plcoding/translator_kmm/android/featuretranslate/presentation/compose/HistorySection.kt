@@ -45,9 +45,9 @@ fun HistorySection(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(shape = RoundedCornerShape(20.dp))
+                        .clickable { onHistoryItemClick(historyItem) }
                         .gradientSurface()
                         .padding(12.dp)
-                        .clickable { onHistoryItemClick(historyItem) }
                 ) {
                     SmallLanguageIcon(
                         drawableRes = historyItem.fromLanguage.drawableRes,
