@@ -116,7 +116,10 @@ fun TranslateTextField(
                     .gradientSurface()
                     .padding(12.dp)
             ) {
-                SmallLanguageIcon(language = fromLanguage)
+                SmallLanguageIcon(
+                    drawableRes = fromLanguage.drawableRes,
+                    text = fromLanguage.language.langName
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -159,7 +162,10 @@ fun TranslateTextField(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                SmallLanguageIcon(language = toLanguage)
+                SmallLanguageIcon(
+                    drawableRes = toLanguage.drawableRes,
+                    text = toLanguage.language.langName
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -200,7 +206,6 @@ fun TranslateTextField(
                 }
             }
         }
-
     }
 }
 

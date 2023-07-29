@@ -1,5 +1,6 @@
 package com.plcoding.translator_kmm.android.featuretranslate.presentation.compose
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,27 +21,25 @@ import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
 @Composable
 fun SmallLanguageIcon(
     modifier: Modifier = Modifier,
-    language: UiLanguage,
-    showLanguageName: Boolean = true
+    @DrawableRes drawableRes: Int,
+    text: String
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
-            model = language.drawableRes,
-            contentDescription = language.language.langName,
+            model = drawableRes,
+            contentDescription = text,
             modifier = Modifier.size(20.dp)
         )
 
-        if (showLanguageName) {
-            Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(8.dp))
 
-            Text(
-                text = language.language.langName,
-                color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
-            )
-        }
+        Text(
+            text = text,
+            color = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
+        )
     }
 }
 
@@ -49,15 +48,17 @@ fun SmallLanguageIcon(
 fun SmallLanguageIconPreview() {
     KmmTranslatorTheme {
         Column {
-            SmallLanguageIcon(language = UiLanguage.allLanguages[0])
+            SmallLanguageIcon(
+                drawableRes = UiLanguage.allLanguages[0].drawableRes,
+                text = UiLanguage.allLanguages[0].language.langName
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            SmallLanguageIcon(language = UiLanguage.allLanguages[1])
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            SmallLanguageIcon(language = UiLanguage.allLanguages[2], showLanguageName = false)
+            SmallLanguageIcon(
+                drawableRes = UiLanguage.allLanguages[0].drawableRes,
+                text = UiLanguage.allLanguages[0].language.langName
+            )
         }
     }
 }
