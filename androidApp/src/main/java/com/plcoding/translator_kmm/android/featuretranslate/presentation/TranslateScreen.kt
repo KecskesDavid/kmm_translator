@@ -22,11 +22,13 @@ import androidx.compose.ui.unit.dp
 import com.plcoding.translator_kmm.android.KmmTranslatorTheme
 import com.plcoding.translator_kmm.android.R
 import com.plcoding.translator_kmm.android.core.compose.KmmTranslatorPreview
+import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.HistorySection
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.LanguagePicker
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.TranslateTextField
 import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateState
+import com.plcoding.translator_kmm.featuretranslate.presentation.UiHistoryItem
 
 @Composable
 fun TranslateScreen(
@@ -92,6 +94,23 @@ fun TranslateScreen(
                     onTranslateClick = { onEvent(TranslateEvent.Translate) },
                     onCloseTranslation = { onEvent(TranslateEvent.CloseTranslation) }
                 )
+
+                HistorySection(historyList =  listOf(
+                    UiHistoryItem(
+                        id = 0L,
+                        fromText = "Somethings",
+                        fromLanguage = UiLanguage.allLanguages[0],
+                        toText = "Some more things",
+                        toLanguage = UiLanguage.allLanguages[0],
+                    ),
+                    UiHistoryItem(
+                        id = 0L,
+                        fromText = "Somethings",
+                        fromLanguage = UiLanguage.allLanguages[0],
+                        toText = "Some more things",
+                        toLanguage = UiLanguage.allLanguages[0],
+                    )
+                ), onHistoryItemClick = {})
             }
         }
     }
