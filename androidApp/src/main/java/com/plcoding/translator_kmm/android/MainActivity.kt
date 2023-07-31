@@ -21,14 +21,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.plcoding.translator_kmm.android.core.compose.navigation.Routes
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.AndroidTranslateViewModel
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.TranslateScreen
+import com.plcoding.translator_kmm.android.featurevoicetotext.VoiceToTextScreen
 import com.plcoding.translator_kmm.android.theme.darkColors
 import com.plcoding.translator_kmm.android.theme.lightColors
+import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
@@ -125,8 +129,28 @@ fun TranslateRoot() {
             val state by viewModel.state.collectAsState()
             TranslateScreen(
                 state = state,
-                onEvent = viewModel::onEvent
+                onEvent = { event ->
+                    when(event) {
+                        is TranslateEvent.RecordAudio -> {
+                            navController.navigate(
+                                Routes.VOICE_RECORD + "/{${state.fromLanguage.language.langCode}}"
+                            )
+                        }
+                        else -> viewModel.onEvent(event)
+                    }
+                }
             )
+        }
+        composable(
+            route = Routes.VOICE_RECORD + "/{languageCode}",
+            arguments = listOf(
+                navArgument("languageCode") {
+                    type = NavType.StringType
+                    defaultValue = "en"
+                }
+            )
+        ) {
+            VoiceToTextScreen()
         }
     }
 }
