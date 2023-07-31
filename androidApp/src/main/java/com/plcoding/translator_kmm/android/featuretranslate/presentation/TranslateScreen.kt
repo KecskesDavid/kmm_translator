@@ -1,5 +1,6 @@
 package com.plcoding.translator_kmm.android.featuretranslate.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,10 +17,12 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.plcoding.translator_kmm.android.KmmTranslatorTheme
@@ -29,6 +32,7 @@ import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.LanguagePicker
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.compose.TranslateTextField
 import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
+import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateError
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateState
 import com.plcoding.translator_kmm.featuretranslate.presentation.UiHistoryItem
@@ -38,10 +42,27 @@ fun TranslateScreen(
     state: TranslateState,
     onEvent: (TranslateEvent) -> Unit
 ) {
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = state.error) {
+        val message = when(state.error) {
+            TranslateError.SERVICE_UNAVAILABLE -> context.getString(R.string.error_service_unavailable)
+            TranslateError.CLIENT_ERROR -> context.getString(R.string.error_client)
+            TranslateError.SERVER_ERROR -> context.getString(R.string.error_server)
+            TranslateError.UNKNOWN_ERROR -> context.getString(R.string.error_unknown)
+            else -> null
+        }
+
+        message?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            onEvent(TranslateEvent.OnErrorSeen)
+        }
+    }
+
     Scaffold(
         floatingActionButton = {
             IconButton(
-                onClick = { },
+                onClick = { onEvent(TranslateEvent.RecordAudio) },
                 modifier = Modifier
                     .size(72.dp)
                     .clip(CircleShape)
@@ -131,7 +152,7 @@ fun TranslateScreen(
                         toText = "Some more things",
                         toLanguage = UiLanguage.allLanguages[0],
                     )
-                ), onHistoryItemClick = {})
+                ), onHistoryItemClick = { onEvent(TranslateEvent.SelectHistoryItem(it)) })
             }
         }
     }
