@@ -2,10 +2,14 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
-
-	var body: some View {
-		Text(greet)
+    
+    var appModule = AppModule()
+    
+    var body: some View {
+		TranslateScreen(
+            historyDataSource: appModule.historyDataSource,
+            translateUseCase: appModule.translateUseCase
+        )
 	}
 }
 
