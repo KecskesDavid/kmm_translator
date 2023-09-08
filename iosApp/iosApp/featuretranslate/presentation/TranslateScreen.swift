@@ -21,7 +21,7 @@ struct TranslateScreen: View {
     }
     
     var body: some View {
-        var state = viewModel.state
+        let state = viewModel.state
         
         ZStack {
             List {
@@ -46,6 +46,19 @@ struct TranslateScreen: View {
                         }
                     )
                 }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.background)
+                
+                TranslateTextField(
+                    fromLanguage: viewModel.state.fromLanguage,
+                    fromText: Binding(get: { viewModel.state.fromText }, set: { value in
+                        viewModel.onEvent(event: TranslateEvent.ChangeTranslationText(text: value))
+                    }),
+                    toLanguage: viewModel.state.toLanguage,
+                    toText: viewModel.state.toText,
+                    isTranslating: viewModel.state.isTranslating,
+                    onTranslateEvent: { viewModel.onEvent(event: $0) }
+                )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.background)
             }

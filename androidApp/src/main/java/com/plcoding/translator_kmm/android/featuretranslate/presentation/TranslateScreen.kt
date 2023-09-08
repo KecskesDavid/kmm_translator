@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,7 +34,6 @@ import com.plcoding.translator_kmm.core.presentation.model.UiLanguage
 import com.plcoding.translator_kmm.featuretranslate.domain.translate.TranslateError
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateState
-import com.plcoding.translator_kmm.featuretranslate.presentation.UiHistoryItem
 
 @Composable
 fun TranslateScreen(
@@ -45,7 +43,7 @@ fun TranslateScreen(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = state.error) {
-        val message = when(state.error) {
+        val message = when (state.error) {
             TranslateError.SERVICE_UNAVAILABLE -> context.getString(R.string.error_service_unavailable)
             TranslateError.CLIENT_ERROR -> context.getString(R.string.error_client)
             TranslateError.SERVER_ERROR -> context.getString(R.string.error_server)
@@ -131,28 +129,15 @@ fun TranslateScreen(
                     fromLanguage = state.fromLanguage,
                     toLanguage = state.toLanguage,
                     isTranslating = state.isTranslating,
-                    isInIdleState = state.toText.isNullOrBlank(),
+                    isInIdleState = state.toText.isNullOrBlank() || state.isTranslating,
                     onTextChange = { onEvent(TranslateEvent.ChangeTranslationText(it)) },
                     onTranslateClick = { onEvent(TranslateEvent.Translate) },
                     onCloseTranslation = { onEvent(TranslateEvent.CloseTranslation) }
                 )
 
-                HistorySection(historyList = listOf(
-                    UiHistoryItem(
-                        id = 0L,
-                        fromText = "Somethings",
-                        fromLanguage = UiLanguage.allLanguages[0],
-                        toText = "Some more things",
-                        toLanguage = UiLanguage.allLanguages[0],
-                    ),
-                    UiHistoryItem(
-                        id = 0L,
-                        fromText = "Somethings",
-                        fromLanguage = UiLanguage.allLanguages[0],
-                        toText = "Some more things",
-                        toLanguage = UiLanguage.allLanguages[0],
-                    )
-                ), onHistoryItemClick = { onEvent(TranslateEvent.SelectHistoryItem(it)) })
+                HistorySection(
+                    historyList = state.history.reversed(),
+                    onHistoryItemClick = { onEvent(TranslateEvent.SelectHistoryItem(it)) })
             }
         }
     }

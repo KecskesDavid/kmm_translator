@@ -12,6 +12,8 @@ import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.utils.io.errors.IOException
 
 class KtorTranslateClient(
@@ -25,6 +27,7 @@ class KtorTranslateClient(
         val result = try {
             httpClient.post {
                 url(Constants.BASE_URL + "/translate")
+                contentType(ContentType.Application.Json)
                 setBody(
                     TranslateRequest(
                         textToTranslate = text,
@@ -48,6 +51,7 @@ class KtorTranslateClient(
 
     private fun checkStatus(value: Int) {
         when (value) {
+            in 200..299 -> Unit
             500 -> throw TranslateException(TranslateError.SERVER_ERROR)
             in 400..499 -> throw TranslateException(TranslateError.CLIENT_ERROR)
             else -> throw TranslateException(TranslateError.UNKNOWN_ERROR)

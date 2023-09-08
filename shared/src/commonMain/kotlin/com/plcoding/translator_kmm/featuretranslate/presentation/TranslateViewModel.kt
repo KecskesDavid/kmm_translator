@@ -151,17 +151,7 @@ class TranslateViewModel(
                     )
                 }
 
-            TranslateEvent.Translate -> {
-                viewModelScope.launch {
-                    _state.update {
-                        it.copy(isTranslating = true)
-                    }
-                    delay(2000)
-                    _state.update {
-                        it.copy(toText = "Something String")
-                    }
-                }
-            } //translate(_state.value)
+            TranslateEvent.Translate -> translate(_state.value)
 
             else -> Unit
         }
@@ -177,7 +167,7 @@ class TranslateViewModel(
 
             val result = translateUseCase(
                 fromLanguage = state.fromLanguage.language,
-                toLanguage = state.fromLanguage.language,
+                toLanguage = state.toLanguage.language,
                 text = state.fromText,
             )
 
