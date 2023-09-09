@@ -1,4 +1,4 @@
-package com.plcoding.translator_kmm.android.featurevoicetotext
+package com.plcoding.translator_kmm.android.featurevoicetotext.presentation
 
 import androidx.compose.runtime.Composable
 

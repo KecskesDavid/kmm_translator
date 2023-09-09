@@ -29,7 +29,7 @@ import androidx.navigation.navArgument
 import com.plcoding.translator_kmm.android.core.compose.navigation.Routes
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.AndroidTranslateViewModel
 import com.plcoding.translator_kmm.android.featuretranslate.presentation.TranslateScreen
-import com.plcoding.translator_kmm.android.featurevoicetotext.VoiceToTextScreen
+import com.plcoding.translator_kmm.android.featurevoicetotext.presentation.VoiceToTextScreen
 import com.plcoding.translator_kmm.android.theme.darkColors
 import com.plcoding.translator_kmm.android.theme.lightColors
 import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
