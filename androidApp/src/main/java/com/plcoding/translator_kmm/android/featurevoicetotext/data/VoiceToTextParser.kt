@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.speech.SpeechRecognizer.ERROR_CLIENT
 import com.plcoding.translator_kmm.core.domain.util.CommonStateFlow
 import com.plcoding.translator_kmm.core.domain.util.toCommonStateFlow
 import com.plcoding.translator_kmm.featurevoicetotext.domain.IVoiceToTextParser
@@ -76,7 +77,7 @@ class VoiceToTextParser(
 
     override fun onRmsChanged(rmsdB: Float) {
         // Normalize rmsdB -> 0f <= rmsdB <= 1f
-        _state.update { it.copy(powerRation = rmsdB * (1f / (12f - (-2f)))) }
+        _state.update { it.copy(powerRatio = rmsdB * (1f / (12f - (-2f)))) }
     }
 
     override fun onBufferReceived(buffer: ByteArray?) = Unit
@@ -86,6 +87,9 @@ class VoiceToTextParser(
     }
 
     override fun onError(error: Int) {
+        if (error == ERROR_CLIENT) {
+            return
+        }
         _state.update { it.copy(error = "Error: $error") }
     }
 

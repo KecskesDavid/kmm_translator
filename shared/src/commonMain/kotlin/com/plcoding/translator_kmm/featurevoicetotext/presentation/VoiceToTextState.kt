@@ -4,7 +4,7 @@ data class VoiceToTextState(
     val powerRatios: List<Float> = emptyList(),
     val spokenText: String = "",
     val canSpeak: Boolean = false,
-    val error: String = "",
+    val error: String? = null,
     val displayState: DisplayState? = null
 )
 

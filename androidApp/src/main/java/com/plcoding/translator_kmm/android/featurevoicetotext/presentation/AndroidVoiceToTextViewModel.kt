@@ -2,7 +2,6 @@ package com.plcoding.translator_kmm.android.featurevoicetotext.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.plcoding.translator_kmm.featuretranslate.presentation.TranslateEvent
 import com.plcoding.translator_kmm.featurevoicetotext.domain.IVoiceToTextParser
 import com.plcoding.translator_kmm.featurevoicetotext.presentation.VoiceToTextEvent
 import com.plcoding.translator_kmm.featurevoicetotext.presentation.VoiceToTextViewModel

@@ -4,11 +4,13 @@ import com.plcoding.translator_kmm.core.domain.util.toCommonStateFlow
 import com.plcoding.translator_kmm.featurevoicetotext.domain.IVoiceToTextParser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class VoiceToTextViewModel(
     private val parser: IVoiceToTextParser,
@@ -20,9 +22,9 @@ class VoiceToTextViewModel(
     val state = _state.combine(parser.state) { state, voiceResult ->
         state.copy(
             spokenText = voiceResult.result,
-            error = voiceResult.error ?: "",
+            error = voiceResult.error,
             displayState = when {
-                voiceResult.error != null -> DisplayState.ERROR
+                !state.canSpeak || voiceResult.error != null -> DisplayState.ERROR
                 voiceResult.result.isNotBlank() && !voiceResult.isSpeaking -> {
                     DisplayState.DISPLAY_RESULTS
                 }
@@ -34,6 +36,21 @@ class VoiceToTextViewModel(
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), VoiceToTextState())
         .toCommonStateFlow()
+
+    init {
+        viewModelScope.launch {
+            while (true) {
+                if (state.value.displayState == DisplayState.SPEAKING) {
+                    _state.update {
+                        it.copy(
+                            powerRatios = it.powerRatios + parser.state.value.powerRatio
+                        )
+                    }
+                }
+                delay(50L)
+            }
+        }
+    }
 
     fun onEvent(event: VoiceToTextEvent) {
         when(event) {
@@ -48,6 +65,7 @@ class VoiceToTextViewModel(
     }
 
     private fun toggleRecording(languageCode: String) {
+        _state.update { it.copy(powerRatios = emptyList()) }
         parser.cancelListening()
         if(state.value.displayState == DisplayState.SPEAKING) {
             parser.stopListening()
