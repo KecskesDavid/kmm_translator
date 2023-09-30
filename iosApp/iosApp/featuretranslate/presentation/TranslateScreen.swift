@@ -13,6 +13,7 @@ struct TranslateScreen: View {
     private var historyDataSource: SqlDelightHistoryDao
     private var translateUseCase: TranslateUseCase
     @ObservedObject var viewModel: IOSTranslateViewModel
+    private let voiceToTextParser = IOSVoiceToTextParser()
     
     init(historyDataSource: SqlDelightHistoryDao, translateUseCase: TranslateUseCase) {
         self.historyDataSource = historyDataSource

@@ -117,7 +117,6 @@ class IOSVoiceToTextParser: IVoiceToTextParser, ObservableObject {
         audioBufferRequest = nil
         
         audioEngine?.stop()
-        audioEngine = nil
         
         inputNode?.removeTap(onBus: 0)
         

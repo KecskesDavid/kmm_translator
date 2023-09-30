@@ -31,6 +31,7 @@ import shared
             parser: voiceToTextParser,
             coroutineScope: nil
         )
+        self.viewModel.onEvent(event: VoiceToTextEvent.PermissionResults(isGranted: true, isPermanentlyDeclined: false))
     }
     
     func startObserving() {
