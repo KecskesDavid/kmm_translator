@@ -62,6 +62,22 @@ struct TranslateScreen: View {
                 )
                 .listRowSeparator(.hidden)
                 .listRowBackground(Color.background)
+                
+                if !viewModel.state.history.isEmpty {
+                    Text("History")
+                        .font(.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.background)
+                    
+                    HistoryListView(
+                        history: viewModel.state.history,
+                        onClick: { item in viewModel.onEvent(event: TranslateEvent.SelectHistoryItem(item: item))}
+                    )
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.background)
+                }
             }
             .listStyle(.plain) // doesn't have that native background
             .buttonStyle(.plain) // each item is not a button
