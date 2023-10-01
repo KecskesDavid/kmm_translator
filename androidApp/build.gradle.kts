@@ -7,10 +7,10 @@ plugins {
 }
 
 android {
-    namespace = "com.plcoding.translator_kmm.android"
+    namespace = "com.example.translator_kmm.android"
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.plcoding.translator_kmm.android"
+        applicationId = "com.example.translator_kmm.android"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

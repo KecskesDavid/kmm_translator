@@ -76,7 +76,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.plcoding.translator_kmm"
+    namespace = "com.example.translator_kmm"
     compileSdk = 33
     defaultConfig {
         minSdk = 24
