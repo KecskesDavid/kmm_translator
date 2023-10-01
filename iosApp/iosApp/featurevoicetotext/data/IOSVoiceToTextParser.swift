@@ -36,7 +36,7 @@ class IOSVoiceToTextParser: IVoiceToTextParser, ObservableObject {
     func cancelListening() {}
     
     func reset() {
-        self.reset()
+        self.stopListening()
         _state.value = VoiceToTextParserState(
             result: "",
             error: nil,
@@ -52,12 +52,13 @@ class IOSVoiceToTextParser: IVoiceToTextParser, ObservableObject {
         let supportedLocale = SFSpeechRecognizer.supportedLocales().contains(chosenLocale) ? chosenLocale : Locale.init(identifier: "en-US")
         
         self.recognizer = SFSpeechRecognizer(locale: supportedLocale)
-        self.audioSession = AVAudioSession.sharedInstance()
         
         guard recognizer?.isAvailable == true else {
             updateState(error: "Speech recognition is not available")
             return
         }
+        
+        self.audioSession = AVAudioSession.sharedInstance()
         
         self.requestPermissions { [weak self] in
             self?.audioBufferRequest = SFSpeechAudioBufferRecognitionRequest()

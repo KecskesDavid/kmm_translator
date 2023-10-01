@@ -20,15 +20,17 @@ struct VoiceRecorderButtonView: View {
 
 private extension VoiceRecorderButtonView {
     var voiceRecorderButton: some View {
-        ZStack {
-            Circle()
-                .foregroundColor(.primaryColor)
-                .padding()
-            
-            icon
-                .foregroundColor(.onPrimary)
+        Button(action: onClick) {
+            ZStack {
+                Circle()
+                    .foregroundColor(.primaryColor)
+                    .padding()
+                
+                icon
+                    .foregroundColor(.onPrimary)
+            }
+            .frame(maxWidth: 100.0, maxHeight: 100.0)
         }
-        .frame(maxWidth: 100.0, maxHeight: 100.0)
     }
     
     var icon: some View {
