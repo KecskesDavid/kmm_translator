@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.translator_kmm.android.KmmTranslatorTheme
 import com.example.translator_kmm.android.R
@@ -69,7 +70,7 @@ fun TranslateScreen(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.mic),
-                    contentDescription = "Navigate to Speech Recognition",
+                    contentDescription = stringResource(id = R.string.record_audio),
                     tint = Color.Unspecified
                 )
             }

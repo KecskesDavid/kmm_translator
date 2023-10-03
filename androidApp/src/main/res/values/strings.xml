@@ -13,4 +13,5 @@
     <string name="start_talking">Click record and start talking</string>
     <string name="record_audio">Record audio</string>
     <string name="error_speech_recognition_unavailable">Speech recognition is not available</string>
+    <string name="translate">Translate</string>
 </resources>

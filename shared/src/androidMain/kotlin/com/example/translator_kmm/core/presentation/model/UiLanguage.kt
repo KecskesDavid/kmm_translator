@@ -5,7 +5,7 @@ import com.example.translator_kmm.core.domain.model.Language
 import com.example.translator_kmm.R
 import java.util.Locale
 
-actual class UiLanguage(
+actual data class UiLanguage(
     @DrawableRes val drawableRes: Int,
     actual val language: Language
 ) {
@@ -30,7 +30,7 @@ actual class UiLanguage(
 
         actual val allLanguages: List<UiLanguage>
             get() = Language.values().map { language ->
-                com.example.translator_kmm.core.presentation.model.UiLanguage(
+                UiLanguage(
                     language = language,
                     drawableRes = when (language) {
                         Language.ENGLISH -> R.drawable.english
