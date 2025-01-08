@@ -38,18 +38,15 @@
   </ol>
 </details>
 
-
 ## About The Project
 <img src="screenshots/ios_08.png" width="46%" /> <img src="screenshots/android_08.png" width="46%" />
 
 This repository was creating for learning purposes. It's a cross-platform application for translating text using Kotlin Multiplatform Mobile.
 It allows users to translate text, from one language to another, either via text or via voice recording. It also keeps track of the translation history with a built in caching logic.  
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ### Tech Corner
 * **[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform-ios-android-template)**
-* **[Hilt](https://dagger.dev/)***
+* **[Hilt](https://dagger.dev/)**
 * **[Ktor](https://ktor.io/)**
 * **[SqlDelight](https://sqldelight.github.io/sqldelight/2.0.2/)**
 * **[Compose - Navigation](https://developer.android.com/jetpack/androidx/releases/navigation)**
