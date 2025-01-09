@@ -39,7 +39,7 @@
 </details>
 
 ## About The Project
-<img src="screenshots/ios_08.png" width="46%" /> <img src="screenshots/android_08.png" width="46%" />
+<img src="recordings/android_app_screenshot.png" width="36%" /> <img src="recordings/ios_app_screenshot.png" width="36%" />
 
 This repository was creating for learning purposes. It's a cross-platform application for translating text using Kotlin Multiplatform Mobile.
 It allows users to translate text, from one language to another, either via text or via voice recording. It also keeps track of the translation history with a built in caching logic.  
@@ -136,6 +136,18 @@ The `iosApp` depends on and uses the `kmm_translator/shared` module as a CocoaPo
 
 
 ## Screenshots/Demo
+
+### Translation feature
+
+<video width="640" height="360" controls>
+    <source src="recordings/android_translation_feature.mp4" type="video/mp4">
+</video>
+
+<img src="recordings/ios_translation_screenshot.mp4" width="36%" />
+
+### Recording feature
+
+<img src="recordings/android_recording_feature.mp4" width="36%" />
 
 ## Contact
 
