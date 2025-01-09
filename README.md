@@ -28,8 +28,8 @@
     <li>
       <a href="#examine-the-project-structure">Examine the project structure</a>
       <ul>
-        <li><a href="#kmm">kmm</a></li>
-        <li><a href="#app">app</a></li>
+        <li><a href="#shared">shared</a></li>
+        <li><a href="#androidApp">androidApp</a></li>
         <li><a href="#iosapp">iosApp</a></li>
       </ul>
     </li>
@@ -133,3 +133,13 @@ The `androidApp` module depends on and uses the `kmm_translator/shared` module a
 
 This is an Xcode project that builds into an iOS application.
 The `iosApp` depends on and uses the `kmm_translator/shared` module as a CocoaPods dependency.
+
+
+## Screenshots/Demo
+
+## Contact
+
+Name - Kecskés Dávid
+
+LinkedIn - https://www.linkedin.com/in/kecskes-david/
+
