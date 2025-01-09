@@ -139,15 +139,13 @@ The `iosApp` depends on and uses the `kmm_translator/shared` module as a CocoaPo
 
 ### Translation feature
 
-<video width="640" height="360" controls>
-    <source src="recordings/android_translation_feature.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/df4f6b7c-ecaf-4a2f-a888-90e50b4c20c7
 
-<img src="recordings/ios_translation_screenshot.mp4" width="36%" />
+https://github.com/user-attachments/assets/dddef15d-6333-40f4-9fd7-7d57d86c2135
 
 ### Recording feature
 
-<img src="recordings/android_recording_feature.mp4" width="36%" />
+https://github.com/user-attachments/assets/a57e7425-13e0-4861-b21f-cb960fe4e8d2
 
 ## Contact
 
